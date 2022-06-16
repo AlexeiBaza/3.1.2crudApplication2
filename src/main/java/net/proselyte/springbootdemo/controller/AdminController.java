@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 @Controller
-public class UserController {
+public class AdminController {
 
     //используем userService как промежуточный слой к бд
     private final UserService userService;
     @Autowired
-    public UserController(UserService userService) {
+    public AdminController(UserService userService) {
         this.userService = userService;
     }
 
-    @GetMapping("/users")
+    @GetMapping("/")
     public String findAll(Model model) {
         List<User> users = userService.findAll();
         model.addAttribute("users", users);
@@ -37,7 +37,7 @@ public class UserController {
     @PostMapping("/user-create")
     public String createUser(User user) {
         userService.saveUser(user);
-        return "redirect:/users";
+        return "redirect:/";
     }
 
 
@@ -45,7 +45,7 @@ public class UserController {
     @GetMapping("/user-delete/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
         userService.deleteById(id);
-        return "redirect:/users";
+        return "redirect:/";
     }
 
 
@@ -59,6 +59,16 @@ public class UserController {
     @PostMapping("/user-update")
     public String updateUser(User user) {
         userService.saveUser(user);//метод save сам определяет обновление или создание новой сущности
-        return "redirect:/users";
+        return "redirect:/";
+    }
+
+
+
+
+    @GetMapping("/user-show/{id}")
+    public String showUser(@PathVariable("id") Long id, Model model) {
+        User user = userService.findById(id);
+        model.addAttribute("user", user);
+        return "user-show";
     }
 }
