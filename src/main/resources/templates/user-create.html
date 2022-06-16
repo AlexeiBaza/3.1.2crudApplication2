@@ -7,7 +7,7 @@
 <body>
 <!--эта форма будет связана с методом указанном по ссылке "/user-create", объект
 который я хочу передавать "user", и этот метод типа Post-->
-<form action="#" th:action="@{/user-create}" th:object="${user}" method="post">
+<form action="#" th:action="@{/admin/user-create}" th:object="${user}" method="post">
 
     <label for="firstName">First name</label>
     <input type="text" th:field="*{firstName}" id="firstName" placeholder="First Name">

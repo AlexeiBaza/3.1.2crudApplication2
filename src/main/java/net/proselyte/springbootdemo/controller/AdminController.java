@@ -21,7 +21,7 @@ public class AdminController {
         this.userService = userService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/admin")
     public String findAll(Model model) {
         List<User> users = userService.findAll();
         model.addAttribute("users", users);
@@ -30,42 +30,42 @@ public class AdminController {
 
 
 
-    @GetMapping("/user-create")
+    @GetMapping("/admin/user-create")
     public String createUserForm(User user) {
         return "user-create";
     }
-    @PostMapping("/user-create")
+    @PostMapping("/admin/user-create")
     public String createUser(User user) {
         userService.saveUser(user);
-        return "redirect:/";
+        return "redirect:/admin";
     }
 
 
 
-    @GetMapping("/user-delete/{id}")
+    @GetMapping("/admin/user-delete/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
         userService.deleteById(id);
-        return "redirect:/";
+        return "redirect:/admin";
     }
 
 
 
-    @GetMapping("/user-update/{id}")
+    @GetMapping("/admin/user-update/{id}")
     public String updateUserForm(@PathVariable("id") Long id, Model model) {
         User user = userService.findById(id);
         model.addAttribute("user", user);
         return "user-update";
     }
-    @PostMapping("/user-update")
+    @PostMapping("/admin/user-update")
     public String updateUser(User user) {
         userService.saveUser(user);//метод save сам определяет обновление или создание новой сущности
-        return "redirect:/";
+        return "redirect:/admin";
     }
 
 
 
 
-    @GetMapping("/user-show/{id}")
+    @GetMapping("/admin/user-show/{id}")
     public String showUser(@PathVariable("id") Long id, Model model) {
         User user = userService.findById(id);
         model.addAttribute("user", user);
