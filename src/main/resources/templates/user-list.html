@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Users</title>
@@ -22,8 +22,11 @@
                 <td th:text="${user.id}"></td>
                 <td th:text="${user.firstName}"></td>
                 <td th:text="${user.lastName}"></td>
+
                 <td><a th:href="@{user-update/{id}(id=${user.id})}">Edit</a></td>
+
                 <td><a th:href="@{user-delete/{id}(id=${user.id})}">Delete</a></td>
+
             </tr>
             </tbody>
         </table>

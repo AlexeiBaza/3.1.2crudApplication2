@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Update user</title>
 </head>
 <body>
+<!--эта форма будет связана с методом указанном по ссылке "/user-update", объект
+который я хочу передавать "user", и этот метод типа post-->
 <form action="#" th:action="@{/user-update}" th:object="${user}" method="post">
     <label for="id">ID</label>
     <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
