@@ -1,6 +1,9 @@
 package net.proselyte.springbootdemo.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,6 +12,9 @@ import java.util.Collection;
 import java.util.Set;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Entity
 @Table(name = "t_user")
 public class User implements UserDetails {
@@ -27,8 +33,6 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    public User() {
-    }
 
 
 
