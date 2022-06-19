@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -18,20 +19,20 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    private final SuccessUserHandler successUserHandler;
-//    public WebSecurityConfig(SuccessUserHandler successUserHandler) {
-//        this.successUserHandler = successUserHandler;
-//    }
+    private final SuccessUserHandler successUserHandler;
+    public WebSecurityConfig(SuccessUserHandler successUserHandler) {
+        this.successUserHandler = successUserHandler;
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .withUser("a")
-                .password("a")
+                .password(passwordEncoder().encode("a"))
                 .roles("ADMIN")
                 .and()
                 .withUser("u")
-                .password("u")
+                .password(passwordEncoder().encode("u"))
                 .roles("USER");
     }
 
@@ -40,12 +41,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/admin").hasRole("ADMIN")
                 .antMatchers("/user").hasAnyRole("USER", "ADMIN")
-                .and().formLogin();
+                .and()
+                .formLogin().successHandler(successUserHandler);
     }
 
     @Bean
-    public PasswordEncoder encoder() {
-        return NoOpPasswordEncoder.getInstance();
+    protected PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(12);
     }
 
 
