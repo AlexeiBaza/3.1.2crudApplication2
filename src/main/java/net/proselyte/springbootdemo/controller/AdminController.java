@@ -61,14 +61,4 @@ public class AdminController {
         userService.saveUser(user);//метод save сам определяет обновление или создание новой сущности
         return "redirect:/admin";
     }
-
-
-
-
-    @GetMapping("/user/user-show/{id}")
-    public String showUser(@PathVariable("id") Long id, Model model) {
-        User user = userService.findById(id);
-        model.addAttribute("user", user);
-        return "user-show";
-    }
 }
